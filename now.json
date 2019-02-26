@@ -1,1 +1,10 @@
-{}
+{
+  "version": 2,
+  "name": "stayhealthy-web",
+  "builds": [
+    {
+      "src": "date.js",
+      "use": "@now/node"
+    }
+  ]
+}
