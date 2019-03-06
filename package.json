@@ -1,0 +1,71 @@
+{
+  "name": "stayhealthy-web",
+  "version": "0.1.0",
+  "description": "Server and web client for StayHealthy!",
+  "author": "Robert Saunders",
+  "homepage": "https://github.com/RobertWSaunders/stayhealthy-web#readme",
+  "bugs": {
+    "url": "https://github.com/RobertWSaunders/stayhealthy-web/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RobertWSaunders/stayhealthy-web.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "scripts": {
+    "build": "next build ./client",
+    "style": "eslint --fix \"./**/*.js\"",
+    "format": "prettier --write './**/*.js'",
+    "start": "NODE_ENV=production node server/index.js",
+    "dev": "NODE_ENV=development nodemon server/index.js"
+  },
+  "engines": {
+    "node": "8.11.x",
+    "npm": "5.x"
+  },
+  "dependencies": {
+    "@emotion/babel-preset-css-prop": "^10.0.7",
+    "@emotion/core": "^10.0.7",
+    "apollo-cache-inmemory": "^1.5.1",
+    "apollo-client": "^2.5.1",
+    "apollo-link": "^1.2.8",
+    "apollo-link-context": "^1.0.15",
+    "apollo-link-error": "^1.1.8",
+    "apollo-link-http": "^1.5.11",
+    "apollo-server-express": "^2.4.8",
+    "babel-plugin-emotion": "^10.0.7",
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "graphql": "^14.1.1",
+    "graphql-resolvers": "^0.3.2",
+    "helmet": "^3.13.0",
+    "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.11",
+    "next": "^8.0.3",
+    "react": "^16.8.3",
+    "react-apollo": "^2.5.1",
+    "react-dom": "^16.8.3",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.0.0-rc.14",
+    "lerna": "^3.4.0",
+    "prettier": "^1.14.2",
+    "pretty-quick": "^1.6.0"
+  }
+}
