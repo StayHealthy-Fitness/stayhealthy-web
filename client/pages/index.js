@@ -1,15 +1,7 @@
-import { css } from "@emotion/core";
-import Link from "next/link";
 import React from "react";
 
-function Index() {
-  return (
-    <div>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </div>
-  );
+function Index(props) {
+  return <div>There will be a map here!</div>;
 }
 
 export default Index;
