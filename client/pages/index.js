@@ -5,10 +5,14 @@ import qs from "qs";
 import { findResultsState } from "../lib/instantSearch";
 import Discover from "../components/Discover";
 
-const updateAfter = 700;
+const DEBOUNCE_TIME = 800;
+
+const createUrl = (searchState) => `?${qs.stringify(searchState)}`;
 
 const searchStateToUrl = (searchState) =>
-  searchState ? `${window.location.pathname}?${qs.stringify(searchState)}` : "";
+  searchState ? `${window.location.pathname}${createUrl(searchState)}` : "";
+
+const urlToSearchState = (location) => qs.parse(location.search.slice(1));
 
 class Index extends Component {
   static async getInitialProps(params) {
@@ -23,7 +27,28 @@ class Index extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      searchState: null,
+      lastLocation: null
+    };
+
     this.onSearchStateChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      lastLocation: window.location.search,
+      searchState: urlToSearchState(window.location)
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (window.location.search !== prevState.lastLocation) {
+      this.setState({
+        lastLocation: window.location.search,
+        searchState: urlToSearchState(window.location)
+      });
+    }
   }
 
   onSearchStateChange = (searchState) => {
@@ -35,14 +60,10 @@ class Index extends Component {
       Router.push(href, href, {
         shallow: true
       });
-    }, updateAfter);
+    }, DEBOUNCE_TIME);
 
     this.setState({ searchState });
   };
-
-  componentDidMount() {
-    this.setState({ searchState: qs.parse(window.location.search.slice(1)) });
-  }
 
   render() {
     return (
