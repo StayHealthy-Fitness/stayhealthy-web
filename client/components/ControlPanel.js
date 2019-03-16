@@ -17,6 +17,7 @@ class ControlPanel extends BaseControl {
             float: right;
             width: 250px;
             cursor: auto;
+            z-index: 1000;
           `}
         >
           {this.props.children}

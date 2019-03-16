@@ -9,7 +9,7 @@ export default (props) => (
     css={css`
       background-color: #ffffff;
       box-shadow: 0 2px 8px #f0f1f2;
-      z-index: 10000;
+      z-index: 100;
     `}
   >
     <img
@@ -19,7 +19,7 @@ export default (props) => (
         height: 40px;
         margin: 12px 24px 12px 0;
       `}
-      src="/static/stayhealthy-logo.png"
+      src="/static/stayhealthy-logo.svg"
     />
 
     {props.children}
