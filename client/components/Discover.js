@@ -1,7 +1,17 @@
-import { Layout, AutoComplete, Input, Icon, Typography, Anchor } from "antd";
+import {
+  Layout,
+  Input,
+  Icon,
+  Typography,
+  Anchor,
+  AutoComplete,
+  Spin
+} from "antd";
 import { RefinementList } from "react-instantsearch-dom";
+import { FlyToInterpolator } from "react-map-gl";
 import React, { Component } from "react";
 import { css } from "@emotion/core";
+import axios from "axios";
 
 import { InstantSearch } from "../lib/instantSearch";
 import CustomSearchBox from "./CustomSearchBox";
@@ -12,13 +22,10 @@ import MapMarker from "./MapMarker";
 import MapList from "./MapList";
 import Header from "./Header";
 import Map from "./Map";
-import { throwServerError } from "apollo-link-http-common";
 
 const { Content, Sider } = Layout;
 const { Text } = Typography;
 const { Link } = Anchor;
-
-const dataSource1 = ["Burns Bay Road", "Downing Street", "Wall Street"];
 
 const mapData = [
   {
@@ -97,14 +104,114 @@ const activityIconNameMap = {
   ["Dragon Boat Paddling"]: "dragon-boat"
 };
 
+const DEFAULT_LOCATION = [-122.4376, 37.7577];
+
 class Discover extends Component {
   constructor(props) {
     super(props);
 
+    const [lng, lat] = DEFAULT_LOCATION;
+
     this.state = {
+      mapViewport: {
+        zoom: 13,
+        latitude: lat,
+        longitude: lng
+      },
+
+      locationSearchValue: null,
+      locationSearchSuggestions: [],
+      locationSearchSuggestionsLoading: false,
+
       feedbackDrawerVisible: false
     };
   }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+
+        this.setMapViewport({
+          latitude,
+          longitude
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  updateLocationSearchSuggestions = async (value) => {
+    if (value) {
+      try {
+        this.setState({
+          locationSearchSuggestions: [],
+          locationSearchSuggestionsLoading: true
+        });
+
+        const res = await axios.get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${
+            process.env.MAPBOX_PUBLIC_API_KEY
+          }&cachebuster=1552757677813&autocomplete=true&country=ca&types=place&limit=5&language=en`
+        );
+
+        this.setState({
+          locationSearchSuggestionsLoading: false,
+          locationSearchSuggestions: res.data.features.map((feature) => ({
+            text: feature.place_name,
+            value: JSON.stringify({
+              name: feature.place_name,
+              geometry: feature.geometry
+            })
+          }))
+        });
+      } catch (e) {
+        console.log(e.repsonse);
+      }
+    }
+  };
+
+  handleLocationSearchChange = (value) => {
+    try {
+      const parsedValue = JSON.parse(value);
+
+      this.setState({
+        locationSearchValue: parsedValue.name,
+        locationSearchSuggestions: [],
+        locationSearchSuggestionsLoading: false
+      });
+
+      const [lng, lat] = parsedValue.geometry.coordinates;
+
+      this.flyToMapViewport(lat, lng);
+    } catch (e) {
+      this.setState({
+        locationSearchValue: value,
+        locationSearchSuggestions: [],
+        locationSearchSuggestionsLoading: false
+      });
+    }
+  };
+
+  setMapViewport = (viewport) => {
+    this.setState({
+      mapViewport: {
+        ...this.state.mapViewport,
+        ...viewport
+      }
+    });
+  };
+
+  flyToMapViewport = (latitude, longitude) => {
+    this.setMapViewport({
+      latitude,
+      longitude,
+      transitionDuration: 3500,
+      transitionInterpolator: new FlyToInterpolator()
+    });
+  };
 
   renderActivityMarker = (activity, index) => {
     return (
@@ -135,7 +242,16 @@ class Discover extends Component {
           <Header>
             <CustomSearchBox placeholder="Find studios, gyms, events, ..." />
             <AutoComplete
-              dataSource={dataSource1}
+              dataSource={this.state.locationSearchSuggestions}
+              value={this.state.locationSearchValue}
+              onChange={this.handleLocationSearchChange}
+              onSearch={this.updateLocationSearchSuggestions}
+              notFoundContent={
+                this.locationSearchSuggestionsLoading ? (
+                  <Spin size="small" />
+                ) : null
+              }
+              dropdownMatchSelectWidth={false}
               placeholder="Search location"
               css={css`
                 width: 250px;
@@ -189,7 +305,10 @@ class Discover extends Component {
               />
             </Sider>
             <Content>
-              <Map>
+              <Map
+                viewport={this.state.mapViewport}
+                setViewport={this.setMapViewport}
+              >
                 <ControlPanel>
                   <RefinementList attribute="activity" />
                 </ControlPanel>
