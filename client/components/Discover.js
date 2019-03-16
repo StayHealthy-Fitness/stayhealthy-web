@@ -9,7 +9,7 @@ import {
 } from "antd";
 import { RefinementList } from "react-instantsearch-dom";
 import { FlyToInterpolator } from "react-map-gl";
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { css } from "@emotion/core";
 import axios from "axios";
 
@@ -119,12 +119,22 @@ class Discover extends Component {
         longitude: lng
       },
 
-      locationSearchValue: null,
+      locationSearchValue: {
+        value: null,
+        selected: false
+      },
       locationSearchSuggestions: [],
       locationSearchSuggestionsLoading: false,
 
+      currentMapLocation: {
+        name: null,
+        geometry: null
+      },
+
       feedbackDrawerVisible: false
     };
+
+    this.locationSearchInputRef = createRef();
   }
 
   componentDidMount() {
@@ -141,6 +151,14 @@ class Discover extends Component {
         console.log(err);
       }
     );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.currentMapLocation.name !== this.state.currentMapLocation.name
+    ) {
+      this.locationSearchInputRef.current.blur();
+    }
   }
 
   updateLocationSearchSuggestions = async (value) => {
@@ -178,19 +196,45 @@ class Discover extends Component {
       const parsedValue = JSON.parse(value);
 
       this.setState({
-        locationSearchValue: parsedValue.name,
+        locationSearchValue: {
+          ...this.state.locationSearchValue,
+          selected: true,
+          value: parsedValue.name
+        },
         locationSearchSuggestions: [],
         locationSearchSuggestionsLoading: false
       });
-
-      const [lng, lat] = parsedValue.geometry.coordinates;
-
-      this.flyToMapViewport(lat, lng);
     } catch (e) {
       this.setState({
-        locationSearchValue: value,
+        locationSearchValue: {
+          ...this.state.locationSearchValue,
+          value
+        },
         locationSearchSuggestions: [],
         locationSearchSuggestionsLoading: false
+      });
+    }
+  };
+
+  handleLocationSearchSelect = (value) => {
+    const parsedValue = JSON.parse(value);
+
+    this.setState({
+      currentMapLocation: parsedValue
+    });
+
+    const [lng, lat] = parsedValue.geometry.coordinates;
+
+    this.flyToMapViewport(lat, lng);
+  };
+
+  handleLocationSearchBlur = () => {
+    if (!this.state.locationSearchValue.selected) {
+      this.setState({
+        locationSearchValue: {
+          value: this.state.currentMapLocation.name,
+          selected: false
+        }
       });
     }
   };
@@ -243,9 +287,20 @@ class Discover extends Component {
             <CustomSearchBox placeholder="Find studios, gyms, events, ..." />
             <AutoComplete
               dataSource={this.state.locationSearchSuggestions}
-              value={this.state.locationSearchValue}
+              value={this.state.locationSearchValue.value}
               onChange={this.handleLocationSearchChange}
               onSearch={this.updateLocationSearchSuggestions}
+              onFocus={() =>
+                this.setState({
+                  locationSearchValue: {
+                    value: null,
+                    selected: false
+                  }
+                })
+              }
+              ref={this.locationSearchInputRef}
+              onSelect={this.handleLocationSearchSelect}
+              onBlur={this.handleLocationSearchBlur}
               notFoundContent={
                 this.locationSearchSuggestionsLoading ? (
                   <Spin size="small" />
