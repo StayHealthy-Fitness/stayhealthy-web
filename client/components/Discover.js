@@ -104,7 +104,7 @@ const activityIconNameMap = {
   ["Dragon Boat Paddling"]: "dragon-boat"
 };
 
-const DEFAULT_LOCATION = [-122.4376, 37.7577];
+const DEFAULT_LOCATION = [-79.3849, 43.6529];
 
 class Discover extends Component {
   constructor(props) {
@@ -120,7 +120,7 @@ class Discover extends Component {
       },
 
       locationSearchValue: {
-        value: null,
+        value: "Toronto, Ontario, Canada",
         selected: false
       },
       locationSearchSuggestions: [],
@@ -137,10 +137,26 @@ class Discover extends Component {
     this.locationSearchInputRef = createRef();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      async (position) => {
         const { latitude, longitude } = position.coords;
+
+        const res = await axios.get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${
+            process.env.MAPBOX_PUBLIC_API_KEY
+          }&cachebuster=1552757677813&country=ca&types=place&limit=5&language=en`
+        );
+
+        this.setState({
+          locationSearchValue: {
+            value: res.data.features[0].place_name
+          },
+          currentMapLocation: {
+            name: res.data.features[0].place_name,
+            geometry: res.data.features[0].geometry
+          }
+        });
 
         this.setMapViewport({
           latitude,
@@ -174,6 +190,7 @@ class Discover extends Component {
             process.env.MAPBOX_PUBLIC_API_KEY
           }&cachebuster=1552757677813&autocomplete=true&country=ca&types=place&limit=5&language=en`
         );
+        console.log(res);
 
         this.setState({
           locationSearchSuggestionsLoading: false,
