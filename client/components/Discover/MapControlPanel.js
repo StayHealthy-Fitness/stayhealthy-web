@@ -1,9 +1,10 @@
+import { RefinementList } from "react-instantsearch-dom";
 import { BaseControl } from "react-map-gl";
 import { css } from "@emotion/core";
 import { Card } from "antd";
 import React from "react";
 
-class ControlPanel extends BaseControl {
+class MapControlPanel extends BaseControl {
   _render() {
     return (
       <div ref={this._containerRef}>
@@ -20,6 +21,8 @@ class ControlPanel extends BaseControl {
             z-index: 1000;
           `}
         >
+          <RefinementList attribute="activity" />
+
           {this.props.children}
         </Card>
       </div>
@@ -27,4 +30,4 @@ class ControlPanel extends BaseControl {
   }
 }
 
-export default ControlPanel;
+export default MapControlPanel;

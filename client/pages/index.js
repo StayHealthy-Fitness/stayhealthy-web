@@ -3,7 +3,7 @@ import Router from "next/router";
 import qs from "qs";
 
 import { findResultsState } from "../lib/instantSearch";
-import Discover from "../components/Discover";
+import Discover from "../components/Discover/Discover";
 
 const DEBOUNCE_TIME = 800;
 
@@ -68,13 +68,13 @@ class Index extends Component {
   render() {
     return (
       <Discover
-        resultsState={this.props.resultsState}
-        onSearchStateChange={this.onSearchStateChange}
         searchState={
           this.state && this.state.searchState
             ? this.state.searchState
             : this.props.searchState
         }
+        resultsState={this.props.resultsState}
+        onSearchStateChange={this.onSearchStateChange}
       />
     );
   }

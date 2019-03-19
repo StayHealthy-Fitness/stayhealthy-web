@@ -12,7 +12,7 @@ import React from "react";
 
 const { Option } = Select;
 
-let FeedbackDrawer = (props) => {
+const FeedbackDrawer = (props) => {
   const { getFieldDecorator } = props.form;
 
   function handleSubmit(e) {
@@ -28,7 +28,7 @@ let FeedbackDrawer = (props) => {
   return (
     <Drawer
       title="Feedback Form"
-      width={720}
+      width={500}
       onClose={props.onClose}
       visible={props.visible}
       style={{
@@ -160,6 +160,4 @@ let FeedbackDrawer = (props) => {
   );
 };
 
-FeedbackDrawer = Form.create()(FeedbackDrawer);
-
-export default FeedbackDrawer;
+export default Form.create()(FeedbackDrawer);

@@ -3,7 +3,7 @@ import { css } from "@emotion/core";
 import { Input, Icon } from "antd";
 import React from "react";
 
-const CustomSearchBox = ({ currentRefinement, refine, placeholder }) => (
+const ActivitySearchInput = ({ currentRefinement, refine, placeholder }) => (
   <Input
     value={currentRefinement}
     onChange={(event) => refine(event.currentTarget.value)}
@@ -25,4 +25,4 @@ const CustomSearchBox = ({ currentRefinement, refine, placeholder }) => (
   />
 );
 
-export default connectSearchBox(CustomSearchBox);
+export default connectSearchBox(ActivitySearchInput);
