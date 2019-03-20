@@ -1,105 +1,21 @@
-import { AutoComplete, Input, Icon } from "antd";
-import React, { useState } from "react";
+import { AutoComplete, Input, Icon, Spin } from "antd";
 import { css } from "@emotion/core";
+import React from "react";
 
 const ActivitySearchInput = (props) => {
-  const [locationSearchValue, setLocationSearchValue] = useState(
-    "Toronto, Ontario, Canada"
-  );
-
-  // locationSearchSuggestions: [],
-  // locationSearchSuggestionsLoading: false,
-
-  // updateLocationSearchSuggestions = async (value) => {
-  //   if (value) {
-  //     try {
-  //       this.setState({
-  //         locationSearchSuggestions: [],
-  //         locationSearchSuggestionsLoading: true
-  //       });
-
-  //       const res = await axios.get(
-  //         `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?access_token=${process.env.MAPBOX_PUBLIC_API_KEY}&cachebuster=1552757677813&autocomplete=true&country=ca&types=place&limit=5&language=en`
-  //       );
-
-  //       this.setState({
-  //         locationSearchSuggestionsLoading: false,
-  //         locationSearchSuggestions: res.data.features.map((feature) => ({
-  //           text: feature.place_name,
-  //           value: JSON.stringify({
-  //             name: feature.place_name,
-  //             geometry: feature.geometry
-  //           })
-  //         }))
-  //       });
-  //     } catch (e) {
-  //       // TODO: Make sure to gracefully handle errors here.
-  //       console.log(e.repsonse);
-  //     }
-  //   }
-  // };
-
-  function handleLocationSearchChange(value) {
-    try {
-      const parsedValue = JSON.parse(value);
-
-      setLocationSearchValue(parsedValue.name);
-    } catch (e) {
-      setLocationSearchValue(value);
-    }
-  }
-
-  // handleLocationSearchSelect = (value) => {
-  //   const parsedValue = JSON.parse(value);
-
-  //   this.setState({
-  //     currentMapLocation: parsedValue
-  //   });
-
-  //   const [lng, lat] = parsedValue.geometry.coordinates;
-
-  //   this.flyToMapViewport(lat, lng);
-  // };
-
-  // handleLocationSearchBlur = () => {
-  //   if (!this.state.locationSearchValue.selected) {
-  //     this.setState({
-  //       locationSearchValue: {
-  //         value: this.state.currentMapLocation.name,
-  //         selected: false
-  //       }
-  //     });
-  //   }
-  // };
-
   return (
     <AutoComplete
+      value={props.value}
+      ref={props.innerRef}
+      dataSource={props.dataSource}
       placeholder={props.placeholder}
-      value={locationSearchValue}
-      // dataSource={this.state.locationSearchSuggestions}
-
       dropdownMatchSelectWidth={false}
-      // notFoundContent={
-      //   this.locationSearchSuggestionsLoading ? (
-      //     <Spin size="small" />
-      //   ) : null
-      // }
-
-      // ref={this.locationSearchInputRef}
-
-      onChange={handleLocationSearchChange}
-      // onSearch={this.updateLocationSearchSuggestions}
-      // onFocus={() =>
-      //   this.setState({
-      //     locationSearchValue: {
-      //       value: null,
-      //       selected: false
-      //     }
-      //   })
-      // }
-      // onSelect={this.handleLocationSearchSelect}
-      // onBlur={this.handleLocationSearchBlur}
-
+      notFoundContent={props.loading ? <Spin size="small" /> : null}
+      onBlur={props.onBlur}
+      onFocus={props.onFocus}
+      onSelect={props.onSelect}
+      onChange={props.onChange}
+      onSearch={props.onSearch}
       css={css`
         width: 250px;
       `}
@@ -120,4 +36,6 @@ const ActivitySearchInput = (props) => {
   );
 };
 
-export default ActivitySearchInput;
+export default React.forwardRef((props, ref) => (
+  <ActivitySearchInput innerRef={ref} {...props} />
+));

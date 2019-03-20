@@ -26,17 +26,19 @@ class ActivityMapContent extends Component {
     this.mapMarkers = [];
   }
 
-  componentDidUpdate() {
-    const { hits } = this.props;
+  componentDidUpdate(prevProps) {
+    if (this.props.hits !== prevProps.hits) {
+      const { hits } = this.props;
 
-    this.mapMarkers = [];
+      this.mapMarkers = [];
 
-    this.mapMarkers = hits.map((activity) => this.activityMapMarker(activity));
+      this.mapMarkers = hits.map((activity) =>
+        this.activityMapMarker(activity)
+      );
+    }
   }
 
-  onViewportChange = (viewport) => {
-    this.props.setMapViewport(viewport);
-
+  refineSearchFromMapBounds = () => {
     const { refine } = this.props;
 
     const bounds = this.props.innerRef.current
@@ -51,6 +53,22 @@ class ActivityMapContent extends Component {
         southWest: { lat: _sw.lat, lng: _sw.lng }
       });
     }
+  };
+
+  onLoad = () => {
+    this.refineSearchFromMapBounds();
+  };
+
+  onViewportChange = (viewport) => {
+    this.props.onViewportChange(viewport);
+  };
+
+  onInteractionStateChange = (interactionState) => {
+    if (!interactionState.isDragging && !interactionState.isTransitioning) {
+      this.refineSearchFromMapBounds();
+    }
+
+    this.props.onInteractionStateChange(interactionState);
   };
 
   activityMapMarker = (activity) => {
@@ -80,7 +98,9 @@ class ActivityMapContent extends Component {
           dragRotate={false}
           touchRotate={false}
           doubleClickZoom={true}
+          onLoad={this.onLoad}
           onViewportChange={this.onViewportChange}
+          onInteractionStateChange={this.onInteractionStateChange}
           mapboxApiAccessToken={process.env.MAPBOX_PUBLIC_API_KEY}
         >
           <MapNavigationControl onViewportChange={this.onViewportChange} />
