@@ -265,7 +265,7 @@ class Discover extends Component {
   render() {
     return (
       <InstantSearch
-        indexName="sh_test_index"
+        indexName={process.env.ALGOLIA_MAP_SEARCH_INDEX}
         searchState={this.props.searchState}
         resultsState={this.props.resultsState}
         appId={process.env.ALGOLIA_APP_ID}
