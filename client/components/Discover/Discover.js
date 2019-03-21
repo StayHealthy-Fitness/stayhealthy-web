@@ -41,7 +41,9 @@ class Discover extends Component {
       locationSearchValue: name,
       locationSearchSuggestions: [],
       locationSearchValueSelected: false,
-      locationSearchSuggestionsLoading: false
+      locationSearchSuggestionsLoading: false,
+
+      selectedActivity: null
     };
 
     this.activityMapRef = React.createRef();
@@ -111,7 +113,7 @@ class Discover extends Component {
     if (
       prevState.previousLocationSearchValue !==
         this.state.previousLocationSearchValue ||
-      prevState.locationSearchValueSelected
+      this.state.locationSearchValueSelected
     ) {
       this.locationSearchInputRef.current.blur();
     }
@@ -262,6 +264,18 @@ class Discover extends Component {
     }
   };
 
+  onHitMouseEnter = (activity) => {
+    this.setState({
+      selectedActivity: activity
+    });
+  };
+
+  onHitMouseLeave = () => {
+    this.setState({
+      selectedActivity: null
+    });
+  };
+
   render() {
     return (
       <InstantSearch
@@ -294,10 +308,17 @@ class Discover extends Component {
           </Header>
 
           <Layout hasSider={true}>
-            <ActivityListSider />
+            <ActivityListSider
+              selectedHit={this.state.selectedActivity}
+              onHitMouseEnter={this.onHitMouseEnter}
+              onHitMouseLeave={this.onHitMouseLeave}
+            />
             <ActivityMapContent
               ref={this.activityMapRef}
               viewport={this.state.mapViewport}
+              selectedHit={this.state.selectedActivity}
+              onHitMouseEnter={this.onHitMouseEnter}
+              onHitMouseLeave={this.onHitMouseLeave}
               onViewportChange={this.setMapViewport}
               onInteractionStateChange={this.onMapInteractionStateChange}
             />

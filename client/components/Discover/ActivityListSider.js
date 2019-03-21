@@ -6,9 +6,13 @@ import ActivityList from "./ActivityList";
 
 const { Sider } = Layout;
 
-const ActivityListSider = () => (
+const ActivityListSider = (props) => (
   <Sider width={450} theme="light" collapsed={false} collapsedWidth={0}>
-    <ActivityList />
+    <ActivityList
+      selectedHit={props.selectedHit}
+      onHitMouseEnter={props.onHitMouseEnter}
+      onHitMouseLeave={props.onHitMouseLeave}
+    />
     <FeedbackFooter />
   </Sider>
 );

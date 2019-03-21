@@ -1,14 +1,20 @@
-import { connectHits } from "react-instantsearch-dom";
+import { connectInfiniteHits } from "react-instantsearch-dom";
 import React from "react";
 
 import ActivityListItem from "./ActivityListItem";
 
 const ActivityList = (props) => (
-  <ol>
+  <div>
     {props.hits.map((hit) => (
-      <ActivityListItem key={hit.objectID} hit={hit} />
+      <ActivityListItem
+        key={hit.objectID}
+        hit={hit}
+        selectedHit={props.selectedHit}
+        onMouseEnter={props.onHitMouseEnter}
+        onMouseLeave={props.onHitMouseLeave}
+      />
     ))}
-  </ol>
+  </div>
 );
 
-export default connectHits(ActivityList);
+export default connectInfiniteHits(ActivityList);

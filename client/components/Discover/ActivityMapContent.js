@@ -27,9 +27,9 @@ class ActivityMapContent extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.hits !== prevProps.hits) {
-      const { hits } = this.props;
+    const { hits } = this.props;
 
+    if (hits !== prevProps.hits) {
       this.mapMarkers = [];
 
       this.mapMarkers = hits.map((activity) =>
@@ -72,12 +72,19 @@ class ActivityMapContent extends Component {
   };
 
   activityMapMarker = (activity) => {
+    const selected =
+      this.props.selectedHit &&
+      this.props.selectedHit.objectID === activity.objectID;
+
     return (
       <MapMarker
         key={`map-marker-${activity.title}`}
         lat={activity._geoloc.lat}
         lng={activity._geoloc.lng}
         iconName={activityIconNameMap[activity.activity]}
+        selected={selected}
+        onMouseLeave={this.props.onHitMouseLeave}
+        onMouseEnter={() => this.props.onHitMouseEnter(activity)}
       />
     );
   };

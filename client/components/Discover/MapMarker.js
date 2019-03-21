@@ -6,12 +6,15 @@ import React from "react";
 export default (props) => (
   <Marker latitude={props.lat} longitude={props.lng}>
     <Card
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
       style={{
         width: 40,
         height: 40
       }}
       bodyStyle={{
         padding: 0,
+        backgroundColor: props.selected ? "#000" : "#FFF",
         textAlign: "center",
         marginTop: 5
       }}

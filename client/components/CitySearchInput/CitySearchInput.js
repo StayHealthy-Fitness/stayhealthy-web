@@ -10,7 +10,18 @@ const ActivitySearchInput = (props) => {
       dataSource={props.dataSource}
       placeholder={props.placeholder}
       dropdownMatchSelectWidth={false}
-      notFoundContent={props.loading ? <Spin size="small" /> : null}
+      notFoundContent={
+        props.loading ? (
+          <div
+            css={css`
+              text-align: center;
+              padding: 5px;
+            `}
+          >
+            <Spin size="small" />
+          </div>
+        ) : null
+      }
       onBlur={props.onBlur}
       onFocus={props.onFocus}
       onSelect={props.onSelect}
