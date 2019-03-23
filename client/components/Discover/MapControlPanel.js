@@ -1,4 +1,4 @@
-import { RefinementList } from "react-instantsearch-dom";
+import { RefinementList, connectStateResults } from "react-instantsearch-dom";
 import { BaseControl } from "react-map-gl";
 import { css } from "@emotion/core";
 import { Card } from "antd";
@@ -6,6 +6,8 @@ import React from "react";
 
 class MapControlPanel extends BaseControl {
   _render() {
+    console.log(this.props.searchingForFacetValues);
+
     return (
       <div ref={this._containerRef}>
         <Card
@@ -21,7 +23,11 @@ class MapControlPanel extends BaseControl {
             z-index: 1000;
           `}
         >
-          <RefinementList attribute="activity" />
+          {this.props.searchingForFacetValues ? (
+            <div>Loading...</div>
+          ) : (
+            <RefinementList attribute="activity" />
+          )}
 
           {this.props.children}
         </Card>
@@ -30,4 +36,4 @@ class MapControlPanel extends BaseControl {
   }
 }
 
-export default MapControlPanel;
+export default connectStateResults(MapControlPanel);

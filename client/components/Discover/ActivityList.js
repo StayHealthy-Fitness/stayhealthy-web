@@ -7,8 +7,8 @@ const ActivityList = (props) => (
   <div>
     {props.hits.map((hit) => (
       <ActivityListItem
-        key={hit.objectID}
         hit={hit}
+        key={hit.objectID}
         selectedHit={props.selectedHit}
         onMouseEnter={props.onHitMouseEnter}
         onMouseLeave={props.onHitMouseLeave}
