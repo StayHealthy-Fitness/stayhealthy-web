@@ -31,6 +31,9 @@
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.7",
     "@emotion/core": "^10.0.7",
+    "@zeit/next-less": "^1.0.1",
+    "algoliasearch": "^3.32.0",
+    "antd": "^3.15.0",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link": "^1.2.8",
@@ -38,7 +41,9 @@
     "apollo-link-error": "^1.1.8",
     "apollo-link-http": "^1.5.11",
     "apollo-server-express": "^2.4.8",
+    "axios": "^0.18.0",
     "babel-plugin-emotion": "^10.0.7",
+    "babel-plugin-import": "^1.11.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "cors": "^2.8.4",
@@ -48,11 +53,19 @@
     "graphql-resolvers": "^0.3.2",
     "helmet": "^3.13.0",
     "isomorphic-unfetch": "^3.0.0",
+    "less": "^3.9.0",
+    "less-vars-to-js": "^1.3.0",
     "lodash": "^4.17.11",
     "next": "^8.0.3",
+    "pg": "^7.8.2",
+    "qs": "^6.6.0",
     "react": "^16.8.3",
     "react-apollo": "^2.5.1",
     "react-dom": "^16.8.3",
+    "react-instantsearch-dom": "^5.4.0",
+    "react-map-gl": "4.0.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.14",
     "winston": "^3.1.0"
   },
   "devDependencies": {
@@ -64,7 +77,6 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.0.0-rc.14",
-    "lerna": "^3.4.0",
     "prettier": "^1.14.2",
     "pretty-quick": "^1.6.0"
   }

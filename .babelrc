@@ -4,8 +4,13 @@
     "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
-    [
-      "emotion"
+      ["emotion"],
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "style": true
+        }
+      ]
     ]
-  ]
 }
