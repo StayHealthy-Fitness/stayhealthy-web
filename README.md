@@ -1,5 +1,7 @@
 # StayHealthy Web
 
+Web client for the consumer facing StayHealthy.
+
 ## Usage
 
 Utilize the scripts below in the root of the project to get started:
