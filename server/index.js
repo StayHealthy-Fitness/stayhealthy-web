@@ -42,7 +42,7 @@ const handle = webClient.getRequestHandler();
       logger.info(`StayHealthy web client server is running on port ${PORT}!`);
     });
   } catch (err) {
-    console.error(err.stack);
+    logger.error(err.stack);
 
     process.exit(1);
   }

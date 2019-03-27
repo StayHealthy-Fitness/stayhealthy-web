@@ -4,5 +4,4 @@ node_modules
 .env
 client/.next
 .DS_STORE
-package-lock.json
 .vscode
