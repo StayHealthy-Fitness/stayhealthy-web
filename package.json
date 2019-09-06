@@ -17,15 +17,15 @@
     }
   },
   "scripts": {
+    "dev": "next ./client",
+    "start": "next start ./client",
     "build": "next build ./client",
     "style": "eslint --fix \"./**.js\"",
-    "format": "prettier --write './**.js'",
-    "dev": "NODE_ENV=development nodemon server/index.js",
-    "start": "NODE_ENV=production node server/index.js"
+    "format": "prettier --write './**.js'"
   },
   "engines": {
-    "node": "11.12.x",
-    "npm": "6.7.x"
+    "node": "12.9.x",
+    "npm": "6.10.x"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.17",
