@@ -3,7 +3,7 @@ import { css } from "@emotion/core";
 import { Card } from "antd";
 import React from "react";
 
-export default (props) => (
+export default props => (
   <Marker latitude={props.lat} longitude={props.lng}>
     <Card
       onMouseEnter={props.onMouseEnter}

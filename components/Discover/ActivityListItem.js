@@ -1,6 +1,6 @@
 import React from "react";
 
-export default (props) => {
+export default props => {
   const itemSelected =
     props.selectedHit && props.selectedHit.objectID === props.hit.objectID;
 

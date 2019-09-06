@@ -7,12 +7,12 @@ import Discover from "../components/Discover/Discover";
 
 const DEBOUNCE_TIME = 800;
 
-const createUrl = (searchState) => `?${qs.stringify(searchState)}`;
+const createUrl = searchState => `?${qs.stringify(searchState)}`;
 
-const searchStateToUrl = (searchState) =>
+const searchStateToUrl = searchState =>
   searchState ? `${window.location.pathname}${createUrl(searchState)}` : "";
 
-const urlToSearchState = (location) => qs.parse(location.search.slice(1));
+const urlToSearchState = location => qs.parse(location.search.slice(1));
 
 class Index extends Component {
   static async getInitialProps(params) {
@@ -51,7 +51,7 @@ class Index extends Component {
     }
   }
 
-  onSearchStateChange = (searchState) => {
+  onSearchStateChange = searchState => {
     clearTimeout(this.debouncedSetState);
 
     this.debouncedSetState = setTimeout(() => {

@@ -17,9 +17,9 @@
     }
   },
   "scripts": {
-    "dev": "next ./client",
-    "start": "next start ./client",
-    "build": "next build ./client",
+    "dev": "next",
+    "start": "next start",
+    "build": "next build",
     "style": "eslint --fix \"./**.js\"",
     "format": "prettier --write './**.js'"
   },

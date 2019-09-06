@@ -2,7 +2,7 @@ import { AutoComplete, Input, Icon, Spin } from "antd";
 import { css } from "@emotion/core";
 import React from "react";
 
-const ActivitySearchInput = (props) => {
+const ActivitySearchInput = props => {
   return (
     <AutoComplete
       value={props.value}

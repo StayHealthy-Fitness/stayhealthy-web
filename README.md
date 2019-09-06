@@ -14,13 +14,13 @@ Utilize the scripts below in the root of the project to get started:
 
 `npm run dev`
 
+**Run the application in production mode:**
+
+`npm run start`
+
 **Build the client:**
 
 `npm run build`
-
-**Start the server in production mode:**
-
-`npm run start`
 
 **Run the linter to check coding style:**
 
@@ -30,12 +30,13 @@ Utilize the scripts below in the root of the project to get started:
 
 `npm run format`
 
-## Contributing
+## Environment Setup
 
-A general guide to contribute in this repository is:
+The required environment variables are:
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b feature/my-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin feature/my-feature`
-5. Submit a pull request :rocket:
+```
+ALGOLIA_APP_ID
+ALGOLIA_API_KEY
+ALGOLIA_MAP_SEARCH_INDEX
+MAPBOX_PUBLIC_API_KEY
+```
