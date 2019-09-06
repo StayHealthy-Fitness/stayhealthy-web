@@ -7,7 +7,7 @@ import ActivityList from "./ActivityList";
 
 const { Sider } = Layout;
 
-const ActivityListSider = (props) => {
+const ActivityListSider = props => {
   function renderLoadingIndicator() {
     return <div>Loading...</div>;
   }

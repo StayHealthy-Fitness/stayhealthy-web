@@ -6,14 +6,11 @@ const path = require("path");
 const fs = require("fs");
 
 const themeVariables = lessToJS(
-  fs.readFileSync(
-    path.resolve(__dirname, "./client/assets/antd-custom.less"),
-    "utf8"
-  )
+  fs.readFileSync(path.resolve(__dirname, "./assets/antd-custom.less"), "utf8")
 );
 
 if (typeof require !== "undefined") {
-  require.extensions[".less"] = (file) => {};
+  require.extensions[".less"] = file => {};
 }
 
 module.exports = withLess({

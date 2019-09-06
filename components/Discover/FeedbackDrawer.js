@@ -12,7 +12,7 @@ import React from "react";
 
 const { Option } = Select;
 
-const FeedbackDrawer = (props) => {
+const FeedbackDrawer = props => {
   const { getFieldDecorator } = props.form;
 
   function handleSubmit(e) {
@@ -111,7 +111,7 @@ const FeedbackDrawer = (props) => {
               })(
                 <DatePicker.RangePicker
                   style={{ width: "100%" }}
-                  getPopupContainer={(trigger) => trigger.parentNode}
+                  getPopupContainer={trigger => trigger.parentNode}
                 />
               )}
             </Form.Item>

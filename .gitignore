@@ -2,6 +2,6 @@ node_modules
 .idea
 *.log
 .env
-client/.next
+.next
 .DS_STORE
 .vscode

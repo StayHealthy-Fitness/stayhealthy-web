@@ -3,9 +3,9 @@ import React from "react";
 
 import ActivityListItem from "./ActivityListItem";
 
-const ActivityList = (props) => (
+const ActivityList = props => (
   <div>
-    {props.hits.map((hit) => (
+    {props.hits.map(hit => (
       <ActivityListItem
         hit={hit}
         key={hit.objectID}
