@@ -1,12 +1,12 @@
 import { connectSearchBox } from "react-instantsearch-dom";
-import { Input, Icon, Select } from "antd";
 import { css } from "@emotion/core";
+import { Select } from "antd";
 import React from "react";
 
 const OptGroup = Select.OptGroup;
 const Option = Select.Option;
 
-const ActivitySearchInput = props => {
+const ActivitySearchInput = (props) => {
   function renderTitle(title) {
     return <span>{title}</span>;
   }
@@ -26,7 +26,7 @@ const ActivitySearchInput = props => {
       value={props.currentRefinement}
       placeholder={props.placeholder}
       dropdownRender={renderDropdownMenu}
-      onChange={value => props.refine(value)}
+      onChange={(value) => props.refine(value)}
       css={css`
         width: 250px;
         font-size: 14px;

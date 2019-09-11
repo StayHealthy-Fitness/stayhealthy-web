@@ -4,7 +4,8 @@ import React from "react";
 
 const { Header: AntHeader } = Layout;
 
-export default props => (
+// eslint-disable-next-line react/display-name
+export default (props) => (
   <AntHeader
     css={css`
       background-color: #ffffff;

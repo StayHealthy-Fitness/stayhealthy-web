@@ -1,6 +1,7 @@
 import React from "react";
 
-export default props => {
+// eslint-disable-next-line react/display-name
+export default (props) => {
   const itemSelected =
     props.selectedHit && props.selectedHit.objectID === props.hit.objectID;
 

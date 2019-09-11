@@ -2,7 +2,7 @@ import { NavigationControl } from "react-map-gl";
 import { css } from "@emotion/core";
 import React from "react";
 
-const MapNavigationControl = props => (
+const MapNavigationControl = (props) => (
   <div
     css={css`
       position: absolute;
