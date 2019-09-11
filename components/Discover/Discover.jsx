@@ -95,7 +95,7 @@ class Discover extends Component {
       } else {
         if (isGeolocationSupported) {
           navigator.geolocation.getCurrentPosition(
-            async position => {
+            async (position) => {
               const { latitude, longitude } = position.coords;
 
               await this.updateSearchLocationValueFromCoordinates(
@@ -105,7 +105,7 @@ class Discover extends Component {
 
               this.transistionToMapViewport(latitude, longitude);
             },
-            err => {
+            () => {
               // TODO: Make sure user permission states are gracefully.
               console.log("Make sure to do error handling here!");
             }
@@ -139,7 +139,7 @@ class Discover extends Component {
     }
   };
 
-  getLocationsFromText = async query => {
+  getLocationsFromText = async (query) => {
     try {
       const res = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${process.env.MAPBOX_PUBLIC_API_KEY}&cachebuster=1552757677813&autocomplete=true&country=ca&types=place&limit=5&language=en`
@@ -169,7 +169,7 @@ class Discover extends Component {
     }
   };
 
-  onMapInteractionStateChange = async interactionState => {
+  onMapInteractionStateChange = async (interactionState) => {
     if (!interactionState.isDragging && !interactionState.isTransitioning) {
       const { latitude, longitude } = this.state.mapViewport;
 
@@ -177,7 +177,7 @@ class Discover extends Component {
     }
   };
 
-  setMapViewport = viewport => {
+  setMapViewport = (viewport) => {
     this.setState({
       mapViewport: {
         ...this.state.mapViewport,
@@ -195,7 +195,7 @@ class Discover extends Component {
     });
   };
 
-  locationSearchOnSearch = async value => {
+  locationSearchOnSearch = async (value) => {
     if (value) {
       try {
         this.setState({
@@ -207,7 +207,7 @@ class Discover extends Component {
 
         this.setState({
           locationSearchSuggestionsLoading: false,
-          locationSearchSuggestions: features.map(feature => ({
+          locationSearchSuggestions: features.map((feature) => ({
             text: feature.place_name,
             value: JSON.stringify({
               name: feature.place_name,
@@ -222,7 +222,7 @@ class Discover extends Component {
     }
   };
 
-  locationSearchOnChange = value => {
+  locationSearchOnChange = (value) => {
     try {
       const parsedValue = JSON.parse(value);
 
@@ -237,7 +237,7 @@ class Discover extends Component {
     }
   };
 
-  locationSearchOnSelect = value => {
+  locationSearchOnSelect = (value) => {
     const parsedValue = JSON.parse(value);
 
     this.setState({
@@ -266,7 +266,7 @@ class Discover extends Component {
     }
   };
 
-  onHitMouseEnter = activity => {
+  onHitMouseEnter = (activity) => {
     this.setState({
       selectedActivity: activity
     });

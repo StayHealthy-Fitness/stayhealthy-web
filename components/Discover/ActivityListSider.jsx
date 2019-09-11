@@ -7,7 +7,7 @@ import ActivityList from "./ActivityList";
 
 const { Sider } = Layout;
 
-const ActivityListSider = props => {
+const ActivityListSider = (props) => {
   function renderLoadingIndicator() {
     return <div>Loading...</div>;
   }
@@ -31,11 +31,13 @@ const ActivityListSider = props => {
 
   return (
     <Sider width={450} theme="light" collapsed={false} collapsedWidth={0}>
+      {/* eslint-disable indent */}
       {props.isSearchStalled
         ? renderLoadingIndicator()
         : searchResultsToShow
         ? renderActivityList()
         : renderNoResults()}
+      {/* eslint-enable indent */}
       <FeedbackFooter />
     </Sider>
   );

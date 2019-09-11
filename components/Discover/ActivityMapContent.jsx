@@ -32,7 +32,9 @@ class ActivityMapContent extends Component {
     if (hits !== prevProps.hits) {
       this.mapMarkers = [];
 
-      this.mapMarkers = hits.map(activity => this.activityMapMarker(activity));
+      this.mapMarkers = hits.map((activity) =>
+        this.activityMapMarker(activity)
+      );
     }
   }
 
@@ -57,11 +59,11 @@ class ActivityMapContent extends Component {
     this.refineSearchFromMapBounds();
   };
 
-  onViewportChange = viewport => {
+  onViewportChange = (viewport) => {
     this.props.onViewportChange(viewport);
   };
 
-  onInteractionStateChange = interactionState => {
+  onInteractionStateChange = (interactionState) => {
     if (!interactionState.isDragging && !interactionState.isTransitioning) {
       this.refineSearchFromMapBounds();
     }
@@ -69,7 +71,7 @@ class ActivityMapContent extends Component {
     this.props.onInteractionStateChange(interactionState);
   };
 
-  activityMapMarker = activity => {
+  activityMapMarker = (activity) => {
     const selected =
       this.props.selectedHit &&
       this.props.selectedHit.objectID === activity.objectID;
@@ -112,7 +114,7 @@ class ActivityMapContent extends Component {
 
           {/* TODO: Add user location pulse. */}
 
-          {this.mapMarkers.map(marker => marker)}
+          {this.mapMarkers.map((marker) => marker)}
 
           <MapControlPanel />
 
@@ -125,6 +127,7 @@ class ActivityMapContent extends Component {
 
 const GeoSearchActivityMapContent = connectGeoSearch(ActivityMapContent);
 
+// eslint-disable-next-line react/display-name
 export default React.forwardRef((props, ref) => (
   <GeoSearchActivityMapContent innerRef={ref} {...props} />
 ));

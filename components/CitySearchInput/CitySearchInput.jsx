@@ -2,7 +2,7 @@ import { AutoComplete, Input, Icon, Spin } from "antd";
 import { css } from "@emotion/core";
 import React from "react";
 
-const ActivitySearchInput = props => {
+const ActivitySearchInput = (props) => {
   return (
     <AutoComplete
       value={props.value}
@@ -47,6 +47,7 @@ const ActivitySearchInput = props => {
   );
 };
 
+// eslint-disable-next-line react/display-name
 export default React.forwardRef((props, ref) => (
   <ActivitySearchInput innerRef={ref} {...props} />
 ));
