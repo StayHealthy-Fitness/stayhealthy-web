@@ -28,7 +28,7 @@
     "npm": "6.10.x"
   },
   "dependencies": {
-    "@emotion/core": "^10.0.17",
+    "@emotion/core": "^10.0.28",
     "algoliasearch": "^3.35.1",
     "antd": "^3.24.3",
     "apollo-cache-inmemory": "^1.6.3",
