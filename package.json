@@ -73,7 +73,7 @@
     "next": "^9.0.5",
     "null-loader": "^3.0.0",
     "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.1",
+    "pretty-quick": "^2.0.2",
     "typescript": "^3.6.4"
   }
 }
