@@ -48,7 +48,7 @@
     "react-apollo": "^3.0.1",
     "react-dom": "^16.11.0",
     "react-instantsearch-dom": "^5.7.0",
-    "react-map-gl": "^5.0.10",
+    "react-map-gl": "^5.2.10",
     "winston": "^3.2.1",
     "next": "^9.0.5",
     "@zeit/next-less": "^1.0.1",
