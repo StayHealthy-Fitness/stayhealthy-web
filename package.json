@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.17",
-    "algoliasearch": "^3.35.1",
+    "algoliasearch": "^4.8.5",
     "antd": "^3.24.3",
     "apollo-cache-inmemory": "^1.6.3",
     "apollo-client": "^2.6.4",
